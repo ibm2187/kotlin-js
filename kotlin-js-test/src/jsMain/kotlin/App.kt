@@ -1,19 +1,22 @@
-external fun require(module: String): dynamic
+import features.Greeting
+import utils.Startup
 
 fun main(args: Array<String>) {
 
-    val fs = require("fs")
+    val startup = Startup()
 
-    val file = fs.copyFile(
-        "/Users/ibm2187/Desktop/kotlin-js/kotlin-js-test/index.js",
-        "/Users/ibm2187/Desktop/kotlin-js/kotlin-js-test/build/js/packages/ibmTest/kotlin/index.js"
-    ) { error ->
-        if (error == null) {
-            val index = require("./index")
-            index.greeting("ibm")
-        } else {
-            console.error(error)
+    startup.copyProjectFiles {
+
+        if (it == null) {
+            launchApp()
         }
+
     }
 
+
+}
+
+private fun launchApp() {
+    val greeting = Greeting()
+    greeting.greet("ibm testing kotlin/js")
 }
